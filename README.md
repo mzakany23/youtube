@@ -1,4 +1,4 @@
-Youtube build video downloader:
+Youtube bulk video downloader:
 =======
 
 see spec for tests.
@@ -12,6 +12,7 @@ The purpose for this is when you need to download multiple youtube files, say a 
 Variables:
 ==========
 search = 'https://www.youtube.com/playlist?list=PLV1-QgpUU7N2TVWS6gEVMqEfAFjAl-DV6'
+
 save = '/path/to/save'
 word = 'French'
 selector = 'table#pl-video-table'
