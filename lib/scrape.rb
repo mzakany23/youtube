@@ -8,12 +8,19 @@ class Scrape
 		@save_destination = save_destination
 	end
 	
-	def return_links(sel,word)
+	def return_links(sel=nil,word=nil)	
 		links = []
+		if sel.nil? && word.nil?
+			mec_get(@search_path).links.each do |link|
+				links << link
+			end
+			links
+		else
 		mec_get(@search_path).links.each do |link|
 			links << link if link.text.include?(word)
 		end
 		links
+		end
 	end
 
 	def you_convert(links)

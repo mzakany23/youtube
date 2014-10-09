@@ -33,10 +33,21 @@ describe 'Scrape' do
 		it 'should convert all youtube vids' do 
 			@find.you_convert(links)
 		end
+	end
 
-		it 'should see path' do 
-			# p @find
+	context 'some more sites' do 
+		before do 
+			url_1 = 'https://www.youtube.com/playlist?list=PL55857F4F6F2D36B1'
+			@find = Scrape.new(url_1, '/Users/mzakany/Desktop')
+			@sel = 'branded-page-v2-body branded-page-v2-primary-column-content'
+			@word = 'EEVblog'
 		end
+
+		it 'should find links' do 
+			@find.return_links(@sel,@word)
+		end
+
+	
 	end
 
 	
