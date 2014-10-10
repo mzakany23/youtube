@@ -19,8 +19,10 @@ Variables:
 
 Send mp4's to your local folder:
 ==========
+
+```
 > find = Scrape.new(search,save)
 > links = find.return_links(selector,word)
 > find.you_convert(links) 
-
+```
 
