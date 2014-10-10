@@ -1,13 +1,13 @@
 # Youtube Bulk Video Downloader:
 =======
 
-### Uses mechanize and nokogiri
+Uses mechanize and nokogiri
 
-### Purpose: when you need to download multiple youtube files, say a course or tutorial i.e. to watch offline. 
+Purpose: when you need to download multiple youtube files, say a course or tutorial i.e. to watch offline. 
 
 
 
-## Variables:
+Variables:
 ==========
 
 
@@ -16,7 +16,7 @@
 > word = 'French'
 > selector = 'table#pl-video-table'
 
-## Send mp4's to your local folder:
+Send mp4's to your local folder:
 ==========
 > find = Scrape.new(search,save)
 > links = find.return_links(selector,word)
