@@ -4,6 +4,8 @@
 Uses mechanize and nokogiri
 
 Purpose: when you need to download multiple youtube files, say a course or tutorial i.e. to watch offline. 
+
+Note: change the SELECTORS[:max_downloads] to increase the amount of mp4s can send.
 ```
 
 
