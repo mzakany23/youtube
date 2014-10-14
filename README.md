@@ -24,13 +24,18 @@ Send mp4's to your local folder:
 ```
 Without keyword search:
 > find = Scrape.new(search,save)
-> links = find.grab_links
+> links = find.grab_links.links
 > find.you_convert(links) 
 ```
 ```
 With keyword search:
 > find = Scrape.new(search,save)
-> links = find.grab_links('French')
+> links = find.grab_links('French').links
 > find.you_convert(links)
 ```
 
+```
+Show Link Titles:
+> show = Scrape.new(search,save)
+> show.grab_links.show.each {|link| puts link}
+```
