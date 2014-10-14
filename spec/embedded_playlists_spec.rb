@@ -27,7 +27,7 @@ describe 'Playlist' do
 	context 'Grab the links with word search' do 
 		it 'should get Monsters' do 
 			found_links = Scrape.new(@of_monsters,@save_to)
-			# found_links.grab_links('Monsters')
+			# found_links.grab_links('Monsters').show
 		end
 	end
 
@@ -37,7 +37,7 @@ describe 'Playlist' do
 		end
 
 		it 'should send no parameter to folder' do 
-			# links = @run.grab_links
+			# links = @run.grab_links.links
 			# @run.you_convert(links)
 		end
 

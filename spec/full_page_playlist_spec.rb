@@ -13,15 +13,15 @@ describe 'Full Page Playlist' do
 
 	context 'Grab Links with no parameters' do 
 		it 'should get eevlog links' do 
-			# @found.grab_links
+			# puts @found.grab_links.show
 			# @found_french.grab_links
 		end
 	end
 
 	context 'Grab with word search' do 
 		it 'should get with word search ' do 
-			# puts @found.grab_links('EEVblog')
-			# puts @found_french.grab_links('French')
+			# @found.grab_links('EEVblog').show
+			# @found_french.grab_links('French').show
 		end
 	end
 
@@ -32,14 +32,10 @@ describe 'Full Page Playlist' do
 		end
 
 		it 'should do no parameters' do 
-			links = @run_french.grab_links
+			links = @run_french.grab_links.links
 			@run_french.you_convert(links)
-
 		end
 
-		it 'should do word search' do 
-
-		end
 	end
 end
 

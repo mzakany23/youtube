@@ -1,67 +1,44 @@
 require 'mechanize'
 require 'nokogiri'
+require 'globals'
 
 class Scrape
+	include Globals
 
 	attr_accessor :search_path, :save_destination
 
-	SELECTIONS	 = {
-		default: 'qualified-channel-title-text',
-		playlist: 'main-content',
-		max_downloads: 3
-	}
-	
 	def initialize(search_path=nil, save_destination=nil)
 		@search_path = search_path
 		@save_destination = save_destination
 	end
 	
-	def return_links(sel=nil,word=nil)	
-		links = []
-		if sel.nil? && word.nil?
-			mec_get(@search_path).links.each do |link|
-				links << link
-			end
-			links
-		else
-		mec_get(@search_path).links.each do |link|
-			links << link if link.text.include?(word)
-		end
-		links
-		end
-	end
-
 
 	def you_convert(links)
 		send_files(links)
 	end
 
 	def grab_links(word=nil)	
-		link_arr = []
-		path = mec_get(@search_path)
-		count = 0
-
-		if word.nil?
-		
-			path.links.each do |link|
-				break if count > SELECTIONS[:max_downloads]
-				youtube = link.click.uri.to_s
-				if youtube.include?('watch?v=')
-					link_arr << youtube 
-					count += 1
-				end
-			end
-		else
-			path.links.each do |link|
-				break if count >> SELECTIONS[:max_downloads]
-				if link.text.include?(word) && link.click.uri.to_s.include?('watch?v=')
-					link_arr << link.click.uri.to_s
-					count += 1
-				end
-			end
-		end
-		link_arr
+		gather(word)
 	end
+
+	def show
+		arr = []
+		@link_arr.each do |link|
+			REPLACE.each do |r|
+				link.text.gsub!(r[0], r[1])
+			end
+			arr << link
+		end
+		arr
+	end
+
+	def links
+		@link_arr
+	end
+
+
+
+
 
 
 
@@ -75,6 +52,43 @@ class Scrape
 		Mechanize.new.get(path)
 	end
 
+	# returns itself
+	def gather(word)
+		@link_arr = []
+	path = mec_get(@search_path)
+	count = 0
+
+	if word.nil?
+	
+		path.links.each do |link|
+			break if count > SELECTIONS[:max_downloads]
+				youtube = link.click.uri.to_s
+				
+				next if link.text.include?('Play')
+
+				if youtube.include?('watch?v=')
+					@link_arr << link
+					count += 1
+				end
+			end
+
+		else
+
+			path.links.each do |link|
+
+				break if count > SELECTIONS[:max_downloads]
+				
+				# next if link.text.include?('Play')
+				
+				if link.text.include?(word) && link.click.uri.to_s.include?('watch?v=')
+					@link_arr << link
+					count += 1
+				end
+			end
+		end
+		self
+
+	end
 	# requires an array
 	def send_files(links)
 		you_convert = 'http://www.youtubeinmp4.com/'
@@ -82,7 +96,7 @@ class Scrape
 		links.each_with_index do |link, i|	
 			next if link.nil?
 			puts "printing link #{i}"
-			form.field_with(:class => 'c3').value = link
+			form.field_with(:class => 'c3').value = link.click.uri.to_s
 			path = "#{@save_destination}/#{i}.mp4"
 			form.submit.links[1].click.save_as(path)
 			puts "link #{1} successful"
